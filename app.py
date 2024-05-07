@@ -2,6 +2,7 @@
 todo application
 """
 import utils
+import json
 from enum import Enum
 from uuid import uuid4
 from prettytable import PrettyTable
@@ -22,8 +23,17 @@ class TaskItem:
         self.id = id
 
 
-default_task = TaskItem("Welcome to Taskpulse", Priority.HIGH.value, uuid4())
-tasks = [default_task]
+def load_tasks_from_file():
+    tasks = []
+    task_file = open("tasks.json", "r")
+    task_data = json.load(task_file)
+    for task in task_data:
+        task_item = TaskItem(task["name"], task["priority"], task["id"])
+        tasks.append(task_item)
+    return tasks
+
+
+tasks = load_tasks_from_file()
 
 
 def display_welcome_message() -> None:
