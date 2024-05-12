@@ -88,6 +88,9 @@ def add_task() -> None:
 
 
 def delete_task() -> None:
+    global tasks
+    id = input("Enter task id: ")
+    tasks = list(filter(lambda task_item: task_item.id != id, tasks))
     print("delete task")
 
 
